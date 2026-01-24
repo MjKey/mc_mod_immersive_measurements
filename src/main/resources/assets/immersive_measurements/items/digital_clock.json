@@ -1,0 +1,18 @@
+{
+  "model": {
+    "type": "minecraft:composite",
+    "models": [
+      {
+        "type": "minecraft:model",
+        "model": "immersive_measurements:item/digital_clock_geo"
+      },
+      {
+        "type": "minecraft:special",
+        "base": "immersive_measurements:item/digital_clock_text",
+        "model": {
+          "type": "immersive_measurements:digital_clock_text"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "GGG",
+    "DCT",
+    "III"
+  ],
+  "key": {
+    "D": "immersive_measurements:depth_meter",
+    "C": "immersive_measurements:digital_clock",
+    "T": "immersive_measurements:triangulator",
+    "G": "minecraft:glass",
+    "I": "minecraft:iron_ingot"
+  },
+  "result": {
+    "count": 1,
+    "id": "immersive_measurements:triangulator"
+  }
+}

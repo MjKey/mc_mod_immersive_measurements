@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "IGI",
+    "CCC",
+    "QMO"
+  ],
+  "key": {
+    "G": "minecraft:glass",
+    "C": "minecraft:compass",
+    "I": "minecraft:iron_ingot",
+    "O": "minecraft:copper_ingot",
+    "M": "minecraft:lodestone",
+    "Q": "minecraft:quartz"
+  },
+  "result": {
+    "count": 1,
+    "id": "immersive_measurements:triangulator"
+  }
+}
