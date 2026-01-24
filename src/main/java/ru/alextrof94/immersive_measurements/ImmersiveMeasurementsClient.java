@@ -1,8 +1,6 @@
 package ru.alextrof94.immersive_measurements;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.special.SpecialModelRenderer;
-import net.minecraft.core.GlobalPos;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -11,18 +9,10 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.InputEvent;
-import net.neoforged.neoforge.client.event.RegisterItemModelsEvent;
 import net.neoforged.neoforge.client.event.RegisterSpecialModelRendererEvent;
-import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
-import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import ru.alextrof94.immersive_measurements.items.*;
-import net.neoforged.neoforge.client.event.ModelEvent;
-
-import java.util.List;
-
-import static ru.alextrof94.immersive_measurements.ImmersiveMeasurements.LOGGER;
 import static ru.alextrof94.immersive_measurements.ImmersiveMeasurements.MODID;
 
 // This class will not load on dedicated servers. Accessing client side code from here is safe.
@@ -46,7 +36,6 @@ public class ImmersiveMeasurementsClient {
             Minecraft mc = Minecraft.getInstance();
             if (mc.player != null && mc.player.getMainHandItem().getItem() instanceof BaseDisplayItem item) {
                 item.leftClickAction(mc.level, mc.player);
-                // Отменяем удар рукой, чтобы просто посмотреть на высоту
                 event.setCanceled(true);
                 event.setSwingHand(true);
             }

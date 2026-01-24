@@ -1,18 +1,10 @@
 package ru.alextrof94.immersive_measurements.items;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.serialization.MapCodec;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.geom.EntityModelSet;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.special.SpecialModelRenderer;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.GlobalPos;
-import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.joml.Quaternionf;
 import org.joml.Vector3f;
 import ru.alextrof94.immersive_measurements.CustomData;
 import ru.alextrof94.immersive_measurements.ModDataComponents;
@@ -45,7 +37,7 @@ public class TriangulatorRenderer extends BaseDisplayRenderer {
 
     @Nullable
     @Override
-    public CustomData extractArgument(ItemStack stack) {
+    public CustomData extractArgument(@NotNull ItemStack stack) {
         Minecraft mc = Minecraft.getInstance();
         if (mc.level != null && mc.level.getGameTime() < displayUntilTick) {
             if (mc.player != null && (stack == mc.player.getMainHandItem() || stack == mc.player.getOffhandItem())) {

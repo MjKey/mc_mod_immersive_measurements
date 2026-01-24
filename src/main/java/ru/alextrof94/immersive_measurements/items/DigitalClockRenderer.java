@@ -1,19 +1,11 @@
 package ru.alextrof94.immersive_measurements.items;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.serialization.MapCodec;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.geom.EntityModelSet;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.special.SpecialModelRenderer;
-import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.joml.Quaternionf;
 import org.joml.Vector3f;
 import ru.alextrof94.immersive_measurements.CustomData;
-import ru.alextrof94.immersive_measurements.ModDataComponents;
 
 import java.util.List;
 
@@ -30,7 +22,7 @@ public class DigitalClockRenderer extends BaseDisplayRenderer {
 
     @Nullable
     @Override
-    public CustomData extractArgument(ItemStack stack) {
+    public CustomData extractArgument(@NotNull ItemStack stack) {
         var level = Minecraft.getInstance().level;
         if (level == null) {
             return new CustomData(false, List.of("00:00"));

@@ -21,7 +21,7 @@ public abstract class BaseDisplayRenderer implements SpecialModelRenderer<Custom
     protected abstract Vector3f getScreenOffset();
 
     @Override
-    public void render(@Nullable CustomData data, @NotNull ItemDisplayContext displayContext, PoseStack poseStack, @NotNull MultiBufferSource buffer, int packedLight, int packedOverlay, boolean hasFoil) {
+    public void render(@Nullable CustomData data, @NotNull ItemDisplayContext displayContext, @NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int packedLight, int packedOverlay, boolean hasFoil) {
         if (data == null || data.data.isEmpty()) return;
 
         Minecraft mc = Minecraft.getInstance();
@@ -98,7 +98,6 @@ public abstract class BaseDisplayRenderer implements SpecialModelRenderer<Custom
 
         public Unbaked(Supplier<T> factory) {
             this.factory = factory;
-            // Создаем кодек, привязанный к конкретной фабрике дочернего класса
             this.codec = MapCodec.unit(this);
         }
 
@@ -108,9 +107,7 @@ public abstract class BaseDisplayRenderer implements SpecialModelRenderer<Custom
         }
 
         @Override
-        public MapCodec<? extends SpecialModelRenderer.Unbaked> type() {
-            // В NeoForge/Minecraft 1.21.x кодеки регистрируются в SpecialModelRenderers
-            // Здесь мы возвращаем наш кодек.
+        public @NotNull MapCodec<? extends SpecialModelRenderer.Unbaked> type() {
             return codec;
         }
     }
