@@ -22,8 +22,8 @@ import java.util.List;
 
 import static ru.alextrof94.immersive_measurements.ModItems.updateItemModelFromLeds;
 
-public class TriangulatorItem extends BaseDisplayItem {
-    public TriangulatorItem(Properties properties) { super(properties); }
+public class GpsItem extends BaseDisplayItem {
+    public GpsItem(Properties properties) { super(properties); }
 
     @Override
     public void leftClickAction(Level level, @NotNull Player player) {
@@ -31,7 +31,7 @@ public class TriangulatorItem extends BaseDisplayItem {
         List<GlobalPos> positions = new ArrayList<>(stack.getOrDefault(ModDataComponents.LODESTONE_POSITIONS.get(), List.of()));
         if (!validateLodestones(level, positions, player))
             return;
-        TriangulatorRenderer.setTemporaryPos(player.blockPosition(), 60);
+        GpsRenderer.setTemporaryPos(player.blockPosition(), 60);
     }
 
     @Override
@@ -58,7 +58,7 @@ public class TriangulatorItem extends BaseDisplayItem {
 
                 stack.set(ModDataComponents.LODESTONE_POSITIONS.get(), positions);
                 stack.set(ModDataComponents.LEDS_COUNT.get(), positions.size());
-                updateItemModelFromLeds(stack, "triangulator");
+                updateItemModelFromLeds(stack, "gps");
 
                 return InteractionResult.SUCCESS;
             }
@@ -110,7 +110,7 @@ public class TriangulatorItem extends BaseDisplayItem {
         if (changed) {
             stack.set(ModDataComponents.LODESTONE_POSITIONS.get(), validPositions);
             stack.set(ModDataComponents.LEDS_COUNT.get(), validPositions.size());
-            updateItemModelFromLeds(stack, "triangulator");
+            updateItemModelFromLeds(stack, "gps");
             return false;
         }
 

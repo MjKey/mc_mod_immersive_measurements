@@ -56,5 +56,9 @@ public class ImmersiveMeasurementsClient {
                 ResourceLocation.fromNamespaceAndPath(MODID, "triangulator_text"),
                 TriangulatorRenderer.UNBAKED.type()
         );
+        event.register(
+                ResourceLocation.fromNamespaceAndPath(MODID, "gps_text"),
+                GpsRenderer.UNBAKED.type()
+        );
     }
 }

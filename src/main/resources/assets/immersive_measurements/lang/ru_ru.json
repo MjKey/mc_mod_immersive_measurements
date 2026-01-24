@@ -3,6 +3,7 @@
   "item.immersive_measurements.depth_meter": "Глубиномер",
   "item.immersive_measurements.digital_clock": "Цифровые часы",
   "item.immersive_measurements.triangulator": "Триангулятор",
+  "item.immersive_measurements.gps": "GPS",
 
   "immersive_measurements.configuration.title": "Настройки иммерсивных измерений",
   "immersive_measurements.configuration.section.immersive.measurements.common.toml": "Настройки иммерсивных измерений",

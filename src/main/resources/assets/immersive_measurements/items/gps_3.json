@@ -1,0 +1,18 @@
+{
+  "model": {
+    "type": "minecraft:composite",
+    "models": [
+      {
+        "type": "minecraft:model",
+        "model": "immersive_measurements:item/gps_3"
+      },
+      {
+        "type": "minecraft:special",
+        "base": "immersive_measurements:item/gps_text",
+        "model": {
+          "type": "immersive_measurements:gps_text"
+        }
+      }
+    ]
+  }
+}

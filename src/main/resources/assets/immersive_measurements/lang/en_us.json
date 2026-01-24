@@ -3,6 +3,7 @@
   "item.immersive_measurements.depth_meter": "Depthmeter",
   "item.immersive_measurements.digital_clock": "Digital Clock",
   "item.immersive_measurements.triangulator": "Triangulator",
+  "item.immersive_measurements.gps": "GPS",
 
   "immersive_measurements.configuration.title": "Immersive Measurements Configs",
   "immersive_measurements.configuration.section.immersive.measurements.common.toml": "Immersive Measurements Configs",
