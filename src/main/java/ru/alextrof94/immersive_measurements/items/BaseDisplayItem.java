@@ -18,7 +18,7 @@ public abstract class BaseDisplayItem extends Item {
 
     @MethodsReturnNonnullByDefault
     @Override
-    public InteractionResult use(Level level, @NotNull Player player, @NotNull InteractionHand hand) {
+    public @NotNull InteractionResult use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand hand) {
         if (hand == InteractionHand.OFF_HAND) {
             return InteractionResult.FAIL;
         }
