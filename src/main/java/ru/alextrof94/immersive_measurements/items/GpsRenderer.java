@@ -55,6 +55,7 @@ public class GpsRenderer extends BaseDisplayRenderer {
 
     private String getTime() {
         var level = Minecraft.getInstance().level;
+        if (level == null) return "00:00";
         long rawTime = level.getDayTime() % 24000;
         int hours = (int) ((rawTime / 1000 + 6) % 24);
         int minutes = (int) ((rawTime % 1000) * 60 / 1000);
