@@ -10,16 +10,16 @@ import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.event.InputEvent;
 import net.neoforged.neoforge.client.event.RegisterItemModelsEvent;
 import net.neoforged.neoforge.client.event.RegisterSpecialModelRendererEvent;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
-import ru.alextrof94.immersive_measurements.items.DepthMeterRenderer;
+import ru.alextrof94.immersive_measurements.items.*;
 import net.neoforged.neoforge.client.event.ModelEvent;
-import ru.alextrof94.immersive_measurements.items.DigitalClockRenderer;
-import ru.alextrof94.immersive_measurements.items.TriangulatorRenderer;
+
 import java.util.List;
 
 import static ru.alextrof94.immersive_measurements.ImmersiveMeasurements.LOGGER;
@@ -41,18 +41,31 @@ public class ImmersiveMeasurementsClient {
     }
 
     @SubscribeEvent
+    public static void onLeftClick(InputEvent.InteractionKeyMappingTriggered event) {
+        if (event.isAttack()) {
+            Minecraft mc = Minecraft.getInstance();
+            if (mc.player != null && mc.player.getMainHandItem().getItem() instanceof BaseDisplayItem item) {
+                item.leftClickAction(mc.level, mc.player);
+                // Отменяем удар рукой, чтобы просто посмотреть на высоту
+                event.setCanceled(true);
+                event.setSwingHand(true);
+            }
+        }
+    }
+
+    @SubscribeEvent
     public static void registerSpecialRenderers(RegisterSpecialModelRendererEvent event) {
         event.register(
                 ResourceLocation.fromNamespaceAndPath(MODID, "depth_meter_text"),
-                DepthMeterRenderer.Unbaked.CODEC
+                DepthMeterRenderer.UNBAKED.type()
         );
         event.register(
                 ResourceLocation.fromNamespaceAndPath(MODID, "digital_clock_text"),
-                DigitalClockRenderer.Unbaked.CODEC
+                DigitalClockRenderer.UNBAKED.type()
         );
         event.register(
                 ResourceLocation.fromNamespaceAndPath(MODID, "triangulator_text"),
-                TriangulatorRenderer.Unbaked.CODEC
+                TriangulatorRenderer.UNBAKED.type()
         );
     }
 }

@@ -11,31 +11,29 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Quaternionf;
+import org.joml.Vector3f;
+import ru.alextrof94.immersive_measurements.CustomData;
 import ru.alextrof94.immersive_measurements.ModDataComponents;
 
-public class DigitalClockRenderer implements SpecialModelRenderer<String> {
-    private static final float SCREEN_WIDTH = 0.875f;
+import java.util.List;
 
-    public static class Unbaked implements SpecialModelRenderer.Unbaked {
-        public static final MapCodec<Unbaked> CODEC = MapCodec.unit(Unbaked::new);
+public class DigitalClockRenderer extends BaseDisplayRenderer {
+    protected float getScreenWidth() { return 0.875f;}
 
-        @Override
-        public SpecialModelRenderer<?> bake(@NotNull EntityModelSet entityModelSet) {
-            return new DigitalClockRenderer();
-        }
+    @Override
+    protected float getScreenHeight() { return 0.6f; }
 
-        @Override
-        public MapCodec<Unbaked> type() {
-            return CODEC;
-        }
-    }
+    @Override
+    protected Vector3f getScreenOffset() { return new Vector3f(0.48f, 0.08f, 0.5f); }
+
+    public static final BaseDisplayRenderer.Unbaked<DigitalClockRenderer> UNBAKED = new BaseDisplayRenderer.Unbaked<>(DigitalClockRenderer::new);
 
     @Nullable
     @Override
-    public String extractArgument(ItemStack stack) {
+    public CustomData extractArgument(ItemStack stack) {
         var level = Minecraft.getInstance().level;
         if (level == null) {
-            return "00:00";
+            return new CustomData(false, List.of("00:00"));
         }
 
         long rawTime = level.getDayTime() % 24000;
@@ -43,25 +41,6 @@ public class DigitalClockRenderer implements SpecialModelRenderer<String> {
         int hours = (int) ((rawTime / 1000 + 6) % 24);
         int minutes = (int) ((rawTime % 1000) * 60 / 1000);
 
-        return String.format("%02d", hours) + ":" + String.format("%02d", minutes);
-    }
-
-    @Override
-    public void render(@Nullable String text, @NotNull ItemDisplayContext displayContext, PoseStack poseStack, @NotNull MultiBufferSource buffer, int packedLight, int packedOverlay, boolean hasFoil) {
-        Minecraft mc = Minecraft.getInstance();
-        poseStack.pushPose();
-        poseStack.translate(0.48, 0.08, 0.5);
-        poseStack.mulPose(new Quaternionf().rotateX((float) Math.toRadians(-90f)).rotateZ((float) Math.toRadians(-90f)));
-
-        float textWidthPx = mc.font.width(text);
-        float scale = (SCREEN_WIDTH * 0.85f) / textWidthPx;
-        scale = Math.max(0.03f, Math.min(scale, 0.03f));
-        poseStack.scale(scale, -scale, scale);
-
-        float w = mc.font.width(text);
-        float h = mc.font.lineHeight;
-        mc.font.drawInBatch(text, -w/2f, -h/2f, 0xFFFFFF, false, poseStack.last().pose(), buffer, net.minecraft.client.gui.Font.DisplayMode.NORMAL, 0, packedLight);
-
-        poseStack.popPose();
+        return new CustomData(false, List.of(String.format("%02d", hours) + ":" + String.format("%02d", minutes)));
     }
 }
