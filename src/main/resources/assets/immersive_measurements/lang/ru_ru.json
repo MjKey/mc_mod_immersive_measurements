@@ -4,6 +4,14 @@
   "item.immersive_measurements.digital_clock": "Цифровые часы",
   "item.immersive_measurements.triangulator": "Триангулятор",
   "item.immersive_measurements.gps": "GPS",
+  "item.immersive_measurements.speedometer": "Спидометр",
+
+  "item.immersive_measurements.lodestone_already_exists": "Магнетит уже записан",
+  "item.immersive_measurements.lodestone_need_three": "Недостаточно данных: нужно 3 магнетита",
+  "item.immersive_measurements.lodestone_another_world": "Ошибка: Триангулятор откалиброван на другой мир!",
+  "item.immersive_measurements.lodestone_lost": "Ошибка: Сигнал от магнетита потерян!",
+  "item.immersive_measurements.lodestone_in_different_worlds": "Ошибка: Магнетиты находятся в разных измерениях!",
+  "item.immersive_measurements.lodestone_too_close": "Ошибка интерференции: магнетиты слишком близко друг к другу!",
 
   "immersive_measurements.configuration.title": "Настройки иммерсивных измерений",
   "immersive_measurements.configuration.section.immersive.measurements.common.toml": "Настройки иммерсивных измерений",

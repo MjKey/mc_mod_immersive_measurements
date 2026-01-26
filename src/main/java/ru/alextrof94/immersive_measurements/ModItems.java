@@ -7,10 +7,7 @@ import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import ru.alextrof94.immersive_measurements.items.DepthMeterItem;
-import ru.alextrof94.immersive_measurements.items.DigitalClockItem;
-import ru.alextrof94.immersive_measurements.items.TriangulatorItem;
-import ru.alextrof94.immersive_measurements.items.GpsItem;
+import ru.alextrof94.immersive_measurements.items.*;
 
 import static ru.alextrof94.immersive_measurements.ImmersiveMeasurements.MODID;
 
@@ -36,6 +33,11 @@ public class ModItems {
     public static final DeferredItem<Item> GPS = ITEMS.registerItem(
             "gps",
             GpsItem::new,
+            new Item.Properties()
+    );
+    public static final DeferredItem<Item> SPEEDOMETER = ITEMS.registerItem(
+            "speedometer",
+            SpeedometerItem::new,
             new Item.Properties()
     );
 

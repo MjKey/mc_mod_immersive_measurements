@@ -45,7 +45,7 @@ public class TriangulatorItem extends BaseDisplayItem {
                 GlobalPos newPos = GlobalPos.of(level.dimension(), blockPos);
 
                 if (positions.contains(newPos)) {
-                    player.displayClientMessage(Component.literal("Магнетит уже записан").withStyle(ChatFormatting.GREEN), true);
+                    player.displayClientMessage(Component.translatable("item.immersive_measurements.lodestone_already_exists").withStyle(ChatFormatting.GREEN), true);
                     return InteractionResult.SUCCESS;
                 }
 
@@ -69,12 +69,12 @@ public class TriangulatorItem extends BaseDisplayItem {
         List<GlobalPos> positions = stack.getOrDefault(ModDataComponents.LODESTONE_POSITIONS.get(), List.of());
         if (positions.size() < 3) {
             validateLodestones(level, positions, player);
-            player.displayClientMessage(Component.literal("Недостаточно данных: нужно 3 магнетита.").withStyle(ChatFormatting.RED), true);
+            player.displayClientMessage(Component.translatable("item.immersive_measurements.lodestone_need_three").withStyle(ChatFormatting.RED), true);
             return;
         }
 
         if (level.dimension() != positions.getFirst().dimension()) {
-            player.displayClientMessage(Component.literal("Триангулятор откалиброван на другой мир").withStyle(ChatFormatting.RED), true);
+            player.displayClientMessage(Component.translatable("item.immersive_measurements.lodestone_another_world").withStyle(ChatFormatting.RED), true);
             return;
         }
 
@@ -99,7 +99,7 @@ public class TriangulatorItem extends BaseDisplayItem {
                     if (!level.getBlockState(pos).is(Blocks.LODESTONE)) {
                         validPositions.remove(i);
                         changed = true;
-                        player.displayClientMessage(Component.literal("Сигнал потерян: магнетит разрушен!").withStyle(ChatFormatting.RED), true);
+                        player.displayClientMessage(Component.translatable("item.immersive_measurements.lodestone_lost").withStyle(ChatFormatting.RED), true);
                     }
                 }
             }
@@ -113,7 +113,7 @@ public class TriangulatorItem extends BaseDisplayItem {
         }
 
         if (validPositions.size() < 3) {
-            player.displayClientMessage(Component.literal("Недостаточно данных: нужно 3 магнетита.").withStyle(ChatFormatting.RED), true);
+            player.displayClientMessage(Component.translatable("item.immersive_measurements.lodestone_need_three").withStyle(ChatFormatting.RED), true);
             return false;
         }
 
@@ -122,7 +122,7 @@ public class TriangulatorItem extends BaseDisplayItem {
         GlobalPos p3 = validPositions.get(2);
 
         if (p1.dimension() != p2.dimension() || p2.dimension() != p3.dimension()) {
-            player.displayClientMessage(Component.literal("Ошибка: Магнетиты находятся в разных измерениях!").withStyle(ChatFormatting.RED), true);
+            player.displayClientMessage(Component.translatable("item.immersive_measurements.lodestone_in_different_worlds").withStyle(ChatFormatting.RED), true);
             return false;
         }
 
@@ -133,7 +133,7 @@ public class TriangulatorItem extends BaseDisplayItem {
         double minSq = Config.MIN_DISTANCE_BETWEEN_MAGNETIT.get() * Config.MIN_DISTANCE_BETWEEN_MAGNETIT.get();
 
         if (d1 < minSq || d2 < minSq || d3 < minSq) {
-            player.displayClientMessage(Component.literal("Ошибка интерференции: магнетиты слишком близко друг к другу!").withStyle(ChatFormatting.GOLD), true);
+            player.displayClientMessage(Component.translatable("item.immersive_measurements.lodestone_too_close").withStyle(ChatFormatting.GOLD), true);
             return false;
         }
 

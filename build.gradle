@@ -117,7 +117,8 @@ processResources {
                 'depth_meter_geo.json', 'depth_meter_text.json',
                 'digital_clock_geo.json', 'digital_clock_text.json',
                 'triangulator_geo.json', 'triangulator_text.json',
-                'gps_geo.json', 'gps_text.json'
+                'gps_geo.json', 'gps_text.json',
+                'speedometer_geo.json', 'speedometer_text.json'
         ] as Set
 
         // Путь внутри assets (где лежат наши json)

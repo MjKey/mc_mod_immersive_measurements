@@ -4,6 +4,14 @@
   "item.immersive_measurements.digital_clock": "Digital Clock",
   "item.immersive_measurements.triangulator": "Triangulator",
   "item.immersive_measurements.gps": "GPS",
+  "item.immersive_measurements.speedometer": "Speedometer",
+
+  "item.immersive_measurements.lodestone_already_exists": "Lodestone already exists",
+  "item.immersive_measurements.lodestone_need_three": "Need three lodestones for work",
+  "item.immersive_measurements.lodestone_another_world": "ERROR: Calibrated for another world!",
+  "item.immersive_measurements.lodestone_lost": "ERROR: Signal from lodestone lost!",
+  "item.immersive_measurements.lodestone_in_different_worlds": "ERROR: Lodestones in different worlds!",
+  "item.immersive_measurements.lodestone_too_close": "Interference error: Lodestones are too close to each other!",
 
   "immersive_measurements.configuration.title": "Immersive Measurements Configs",
   "immersive_measurements.configuration.section.immersive.measurements.common.toml": "Immersive Measurements Configs",

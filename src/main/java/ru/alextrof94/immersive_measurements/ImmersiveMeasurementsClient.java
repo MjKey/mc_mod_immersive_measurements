@@ -60,5 +60,9 @@ public class ImmersiveMeasurementsClient {
                 ResourceLocation.fromNamespaceAndPath(MODID, "gps_text"),
                 GpsRenderer.UNBAKED.type()
         );
+        event.register(
+                ResourceLocation.fromNamespaceAndPath(MODID, "speedometer_text"),
+                SpeedometerRenderer.UNBAKED.type()
+        );
     }
 }

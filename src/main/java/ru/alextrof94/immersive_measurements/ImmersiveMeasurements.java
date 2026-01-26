@@ -36,6 +36,7 @@ public class ImmersiveMeasurements {
                 output.accept(ModItems.DIGITAL_CLOCK.get());
                 output.accept(ModItems.TRIANGULATOR.get());
                 output.accept(ModItems.GPS.get());
+                output.accept(ModItems.SPEEDOMETER.get());
             }).build());
 
 
@@ -65,6 +66,7 @@ public class ImmersiveMeasurements {
             event.accept(ModItems.DIGITAL_CLOCK);
             event.accept(ModItems.TRIANGULATOR);
             event.accept(ModItems.GPS);
+            event.accept(ModItems.SPEEDOMETER);
         }
     }
 

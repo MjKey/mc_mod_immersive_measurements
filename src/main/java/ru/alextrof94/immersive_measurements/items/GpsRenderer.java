@@ -1,8 +1,11 @@
 package ru.alextrof94.immersive_measurements.items;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.font.providers.UnihexProvider;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.GlobalPos;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
@@ -38,18 +41,27 @@ public class GpsRenderer extends BaseDisplayRenderer {
     @Nullable
     @Override
     public CustomData extractArgument(@NotNull ItemStack stack) {
+        GlobalPos savedPos = null;
+        if (stack.has(ModDataComponents.TRIANGULATED_POS.get())) {
+            savedPos = stack.get(ModDataComponents.TRIANGULATED_POS.get());
+        }
+
+
         Minecraft mc = Minecraft.getInstance();
         if (mc.level != null && mc.level.getGameTime() < displayUntilTick) {
             if (mc.player != null && (stack == mc.player.getMainHandItem() || stack == mc.player.getOffhandItem())) {
-                return new CustomData(true, List.of(getTime(), "x: " + tempPos.getX(), "y: " + tempPos.getY(), "z: " + tempPos.getZ()));
+                BlockPos diff = null;
+                if (savedPos != null && mc.level.dimension() == savedPos.dimension())
+                    diff = new BlockPos(savedPos.pos().getX() - tempPos.getX(), savedPos.pos().getY() - tempPos.getY(), savedPos.pos().getZ() - tempPos.getZ());
+                return new CustomData(true, List.of(getTime(),
+                        "x: " + tempPos.getX() + (diff != null ? " (" + diff.getX() + ")" : ""),
+                        "y: " + tempPos.getY() + (diff != null ? " (" + diff.getY() + ")" : ""),
+                        "z: " + tempPos.getZ() + (diff != null ? " (" + diff.getZ() + ")" : "")));
             }
         }
 
-        if (stack.has(ModDataComponents.TRIANGULATED_POS.get())) {
-            var pos = stack.get(ModDataComponents.TRIANGULATED_POS.get());
-            if (pos != null)
-                return new CustomData(false, List.of(getTime(), "x: " + pos.pos().getX(), "y: " + pos.pos().getY(), "z: " + pos.pos().getZ()));
-        }
+        if (savedPos != null)
+            return new CustomData(false, List.of(getTime(), "x: " + savedPos.pos().getX(), "y: " + savedPos.pos().getY(), "z: " + savedPos.pos().getZ()));
         return new CustomData(false, List.of(getTime(), "POS N/A"));
     }
 
