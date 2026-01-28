@@ -11,7 +11,7 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public abstract class BaseDisplayItem extends Item {
+public abstract class BaseDisplayItem extends Item implements IDisplayItem {
     public BaseDisplayItem(Item.Properties properties) {
         super(properties.stacksTo(1));
     }
@@ -42,5 +42,7 @@ public abstract class BaseDisplayItem extends Item {
     }
 
     public abstract void leftClickAction(Level level, @NotNull Player player);
-    public abstract InteractionResult rightClickAction(Level level, @NotNull Player player, @Nullable BlockPos blockPos);
+
+    public abstract InteractionResult rightClickAction(Level level, @NotNull Player player,
+            @Nullable BlockPos blockPos);
 }
