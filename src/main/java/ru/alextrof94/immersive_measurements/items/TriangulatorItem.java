@@ -4,10 +4,14 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
@@ -20,13 +24,41 @@ import java.util.List;
 
 import static ru.alextrof94.immersive_measurements.ModItems.updateItemModelFromLeds;
 
-public class TriangulatorItem extends BaseDisplayItem {
-    public TriangulatorItem(Properties properties) { super(properties); }
+public class TriangulatorItem extends BlockItem implements IDisplayItem {
+    public TriangulatorItem(Block block, Properties properties) {
+        super(block, properties.stacksTo(1));
+    }
+
+    @Override
+    public InteractionResult use(Level level, Player player, InteractionHand hand) {
+        if (hand == InteractionHand.OFF_HAND) {
+            return InteractionResult.FAIL;
+        }
+        if (!level.isClientSide) {
+            rightClickAction(level, player, null);
+        }
+        return InteractionResult.SUCCESS;
+    }
+
+    @Override
+    public InteractionResult useOn(UseOnContext context) {
+        if (context.getHand() == InteractionHand.OFF_HAND) {
+            return InteractionResult.FAIL;
+        }
+        if (context.getPlayer() != null && context.getPlayer().isShiftKeyDown()) {
+            return super.useOn(context);
+        }
+        if (!context.getLevel().isClientSide && context.getPlayer() != null) {
+            return rightClickAction(context.getLevel(), context.getPlayer(), context.getClickedPos());
+        }
+        return InteractionResult.SUCCESS;
+    }
 
     @Override
     public void leftClickAction(Level level, @NotNull Player player) {
         ItemStack stack = player.getMainHandItem();
-        List<GlobalPos> positions = new ArrayList<>(stack.getOrDefault(ModDataComponents.LODESTONE_POSITIONS.get(), List.of()));
+        List<GlobalPos> positions = new ArrayList<>(
+                stack.getOrDefault(ModDataComponents.LODESTONE_POSITIONS.get(), List.of()));
         if (!validateLodestones(level, positions, player))
             return;
         TriangulatorRenderer.setTemporaryPos(player.blockPosition(), 60);
@@ -38,14 +70,18 @@ public class TriangulatorItem extends BaseDisplayItem {
 
         if (blockPos != null) {
             BlockState state = level.getBlockState(blockPos);
-            List<GlobalPos> positions = new ArrayList<>(stack.getOrDefault(ModDataComponents.LODESTONE_POSITIONS.get(), List.of()));
+            List<GlobalPos> positions = new ArrayList<>(
+                    stack.getOrDefault(ModDataComponents.LODESTONE_POSITIONS.get(), List.of()));
             validateLodestones(level, positions, player);
 
             if (state.is(Blocks.LODESTONE)) {
                 GlobalPos newPos = GlobalPos.of(level.dimension(), blockPos);
 
                 if (positions.contains(newPos)) {
-                    player.displayClientMessage(Component.translatable("item.immersive_measurements.lodestone_already_exists").withStyle(ChatFormatting.GREEN), true);
+                    player.displayClientMessage(
+                            Component.translatable("item.immersive_measurements.lodestone_already_exists")
+                                    .withStyle(ChatFormatting.GREEN),
+                            true);
                     return InteractionResult.SUCCESS;
                 }
 
@@ -69,12 +105,14 @@ public class TriangulatorItem extends BaseDisplayItem {
         List<GlobalPos> positions = stack.getOrDefault(ModDataComponents.LODESTONE_POSITIONS.get(), List.of());
         if (positions.size() < 3) {
             validateLodestones(level, positions, player);
-            player.displayClientMessage(Component.translatable("item.immersive_measurements.lodestone_need_three").withStyle(ChatFormatting.RED), true);
+            player.displayClientMessage(Component.translatable("item.immersive_measurements.lodestone_need_three")
+                    .withStyle(ChatFormatting.RED), true);
             return;
         }
 
         if (level.dimension() != positions.getFirst().dimension()) {
-            player.displayClientMessage(Component.translatable("item.immersive_measurements.lodestone_another_world").withStyle(ChatFormatting.RED), true);
+            player.displayClientMessage(Component.translatable("item.immersive_measurements.lodestone_another_world")
+                    .withStyle(ChatFormatting.RED), true);
             return;
         }
 
@@ -99,7 +137,8 @@ public class TriangulatorItem extends BaseDisplayItem {
                     if (!level.getBlockState(pos).is(Blocks.LODESTONE)) {
                         validPositions.remove(i);
                         changed = true;
-                        player.displayClientMessage(Component.translatable("item.immersive_measurements.lodestone_lost").withStyle(ChatFormatting.RED), true);
+                        player.displayClientMessage(Component.translatable("item.immersive_measurements.lodestone_lost")
+                                .withStyle(ChatFormatting.RED), true);
                     }
                 }
             }
@@ -113,7 +152,8 @@ public class TriangulatorItem extends BaseDisplayItem {
         }
 
         if (validPositions.size() < 3) {
-            player.displayClientMessage(Component.translatable("item.immersive_measurements.lodestone_need_three").withStyle(ChatFormatting.RED), true);
+            player.displayClientMessage(Component.translatable("item.immersive_measurements.lodestone_need_three")
+                    .withStyle(ChatFormatting.RED), true);
             return false;
         }
 
@@ -122,7 +162,10 @@ public class TriangulatorItem extends BaseDisplayItem {
         GlobalPos p3 = validPositions.get(2);
 
         if (p1.dimension() != p2.dimension() || p2.dimension() != p3.dimension()) {
-            player.displayClientMessage(Component.translatable("item.immersive_measurements.lodestone_in_different_worlds").withStyle(ChatFormatting.RED), true);
+            player.displayClientMessage(
+                    Component.translatable("item.immersive_measurements.lodestone_in_different_worlds")
+                            .withStyle(ChatFormatting.RED),
+                    true);
             return false;
         }
 
@@ -133,7 +176,8 @@ public class TriangulatorItem extends BaseDisplayItem {
         double minSq = Config.MIN_DISTANCE_BETWEEN_MAGNETIT.get() * Config.MIN_DISTANCE_BETWEEN_MAGNETIT.get();
 
         if (d1 < minSq || d2 < minSq || d3 < minSq) {
-            player.displayClientMessage(Component.translatable("item.immersive_measurements.lodestone_too_close").withStyle(ChatFormatting.GOLD), true);
+            player.displayClientMessage(Component.translatable("item.immersive_measurements.lodestone_too_close")
+                    .withStyle(ChatFormatting.GOLD), true);
             return false;
         }
 
