@@ -1,19 +1,19 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_cobblestone": {
+    "has_resonator": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "items": "minecraft:cobblestone"
+            "items": "immersive_measurements:sensor_lodestone_resonator"
           }
         ]
       }
     }
   },
   "requirements": [
-    ["has_cobblestone"]
+    ["has_resonator"]
   ],
   "rewards": {
     "recipes": ["immersive_measurements:triangulator"]

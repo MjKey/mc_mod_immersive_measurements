@@ -1,18 +1,17 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
+  "category": "redstone",
   "pattern": [
-    "IGI",
-    "CCC",
-    "QMO"
+    "LDB",
+    " SB",
+    " C "
   ],
   "key": {
-    "G": "minecraft:glass",
-    "C": "minecraft:compass",
-    "I": "minecraft:iron_ingot",
-    "O": "minecraft:copper_ingot",
-    "M": "minecraft:lodestone",
-    "Q": "minecraft:quartz"
+    "B": "minecraft:stone_button",
+    "L": "minecraft:lightning_rod",
+    "D": "immersive_measurements:base_display",
+    "S": "immersive_measurements:sensor_lodestone_resonator",
+    "C": "immersive_measurements:base_case"
   },
   "result": {
     "count": 1,

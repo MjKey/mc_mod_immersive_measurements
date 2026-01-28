@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "immersive_measurements:item/resource/sensor_quartz_oscillator",
+    "particle": "immersive_measurements:item/resource/sensor_quartz_oscillator"
+  }
+}

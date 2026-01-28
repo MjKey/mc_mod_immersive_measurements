@@ -1,21 +1,54 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_cobblestone": {
+    "has_depth_meter": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "items": "minecraft:cobblestone"
+            "items": "immersive_measurements:depth_meter"
+          }
+        ]
+      }
+    },
+    "has_digital_clock": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "immersive_measurements:digital_clock"
+          }
+        ]
+      }
+    },
+    "has_speedometer": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "immersive_measurements:speedometer"
+          }
+        ]
+      }
+    },
+    "has_triangulator": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "immersive_measurements:triangulator"
           }
         ]
       }
     }
   },
   "requirements": [
-    ["has_cobblestone"]
+    ["has_depth_meter", "has_digital_clock", "has_speedometer", "has_triangulator"]
   ],
   "rewards": {
-    "recipes": ["immersive_measurements:gps"]
+    "recipes": [
+      "immersive_measurements:advanced_processor",
+      "immersive_measurements:gps"
+    ]
   }
 }

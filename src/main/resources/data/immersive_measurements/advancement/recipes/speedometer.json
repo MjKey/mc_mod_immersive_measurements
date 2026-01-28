@@ -1,19 +1,19 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_cobblestone": {
+    "has_flywheel": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "items": "minecraft:cobblestone"
+            "items": "immersive_measurements:sensor_flywheel"
           }
         ]
       }
     }
   },
   "requirements": [
-    ["has_cobblestone"]
+    ["has_flywheel"]
   ],
   "rewards": {
     "recipes": ["immersive_measurements:speedometer"]

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "   ",
+    "GSG",
+    "ILI"
+  ],
+  "key": {
+    "G": "minecraft:glass",
+    "S": "minecraft:glowstone_dust",
+    "I": "minecraft:iron_ingot",
+    "L": "minecraft:lapis_lazuli"
+  },
+  "result": {
+    "count": 1,
+    "id": "immersive_measurements:base_display"
+  }
+}

@@ -1,16 +1,15 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
+  "category": "redstone",
   "pattern": [
-    "GGG",
-    "IQI",
-    "IRI"
+    " D ",
+    " S ",
+    " C "
   ],
   "key": {
-    "G": "minecraft:glass",
-    "I": "minecraft:iron_ingot",
-    "Q": "minecraft:quartz",
-    "R": "minecraft:redstone"
+    "D": "immersive_measurements:base_display",
+    "S": "immersive_measurements:sensor_flywheel",
+    "C": "immersive_measurements:base_case"
   },
   "result": {
     "count": 1,

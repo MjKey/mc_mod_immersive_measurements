@@ -1,17 +1,17 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
+  "category": "redstone",
   "pattern": [
-    "GGG",
+    " P ",
     "DCT",
-    "III"
+    " B "
   ],
   "key": {
     "D": "immersive_measurements:depth_meter",
     "C": "immersive_measurements:digital_clock",
     "T": "immersive_measurements:triangulator",
-    "G": "minecraft:glass",
-    "I": "minecraft:iron_ingot"
+    "P": "immersive_measurements:advanced_processor",
+    "B": "immersive_measurements:base_case"
   },
   "result": {
     "count": 1,

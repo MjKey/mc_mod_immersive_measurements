@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "immersive_measurements:item/resource/base_circuit_board",
+    "particle": "immersive_measurements:item/resource/base_circuit_board"
+  }
+}

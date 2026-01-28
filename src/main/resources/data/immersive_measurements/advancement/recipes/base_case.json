@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_iron": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:iron_ingot"
+          }
+        ]
+      }
+    },
+    "has_base_display": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "immersive_measurements:base_display"
+          }
+        ]
+      }
+    },
+    "has_base_circuit_board": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "immersive_measurements:base_circuit_board"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    ["has_iron", "has_base_display", "has_base_circuit_board"]
+  ],
+  "rewards": {
+    "recipes": [
+      "immersive_measurements:base_case"
+    ]
+  }
+}

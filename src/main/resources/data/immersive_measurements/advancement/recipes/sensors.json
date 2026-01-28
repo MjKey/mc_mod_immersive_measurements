@@ -1,0 +1,26 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_board": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "immersive_measurements:base_circuit_board"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    ["has_board"]
+  ],
+  "rewards": {
+    "recipes": [
+      "immersive_measurements:sensor_barometer",
+      "immersive_measurements:sensor_flywheel",
+      "immersive_measurements:sensor_lodestone_resonator",
+      "immersive_measurements:sensor_quartz_oscillator"
+    ]
+  }
+}

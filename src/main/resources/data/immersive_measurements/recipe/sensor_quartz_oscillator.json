@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "   ",
+    "QRQ",
+    " B "
+  ],
+  "key": {
+    "Q": "minecraft:quartz",
+    "R": "minecraft:repeater",
+    "B": "immersive_measurements:base_circuit_board"
+  },
+  "result": {
+    "count": 1,
+    "id": "immersive_measurements:sensor_quartz_oscillator"
+  }
+}

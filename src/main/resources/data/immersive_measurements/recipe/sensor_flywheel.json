@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "RQR",
+    " E ",
+    "RBR"
+  ],
+  "key": {
+    "E": "minecraft:redstone_block",
+    "Q": "immersive_measurements:sensor_quartz_oscillator",
+    "R": "minecraft:redstone",
+    "B": "immersive_measurements:base_circuit_board"
+  },
+  "result": {
+    "count": 1,
+    "id": "immersive_measurements:sensor_flywheel"
+  }
+}

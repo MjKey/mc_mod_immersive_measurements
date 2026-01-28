@@ -37,6 +37,14 @@ public class ImmersiveMeasurements {
                 output.accept(ModItems.TRIANGULATOR.get());
                 output.accept(ModItems.GPS.get());
                 output.accept(ModItems.SPEEDOMETER.get());
+                output.accept(ModItems.BASE_CASE.get());
+                output.accept(ModItems.BASE_DISPLAY.get());
+                output.accept(ModItems.BASE_CIRCUIT_BOARD.get());
+                output.accept(ModItems.ADVANCED_PROCESSOR.get());
+                output.accept(ModItems.SENSOR_BAROMETER.get());
+                output.accept(ModItems.SENSOR_FLYWHEEL.get());
+                output.accept(ModItems.SENSOR_LODESTONE_RESONATOR.get());
+                output.accept(ModItems.SENSOR_QUARTZ_OSCILLATOR.get());
             }).build());
 
 
@@ -67,6 +75,14 @@ public class ImmersiveMeasurements {
             event.accept(ModItems.TRIANGULATOR);
             event.accept(ModItems.GPS);
             event.accept(ModItems.SPEEDOMETER);
+            event.accept(ModItems.BASE_CASE.get());
+            event.accept(ModItems.BASE_DISPLAY.get());
+            event.accept(ModItems.BASE_CIRCUIT_BOARD.get());
+            event.accept(ModItems.ADVANCED_PROCESSOR.get());
+            event.accept(ModItems.SENSOR_BAROMETER.get());
+            event.accept(ModItems.SENSOR_FLYWHEEL.get());
+            event.accept(ModItems.SENSOR_LODESTONE_RESONATOR.get());
+            event.accept(ModItems.SENSOR_QUARTZ_OSCILLATOR.get());
         }
     }
 

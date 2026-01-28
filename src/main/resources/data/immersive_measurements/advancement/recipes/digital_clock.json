@@ -1,19 +1,19 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_cobblestone": {
+    "has_oscillator": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "items": "minecraft:cobblestone"
+            "items": "immersive_measurements:sensor_quartz_oscillator"
           }
         ]
       }
     }
   },
   "requirements": [
-    ["has_cobblestone"]
+    ["has_oscillator"]
   ],
   "rewards": {
     "recipes": ["immersive_measurements:digital_clock"]

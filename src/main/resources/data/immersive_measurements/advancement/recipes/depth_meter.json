@@ -1,19 +1,19 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_cobblestone": {
+    "has_barometer": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "items": "minecraft:cobblestone"
+            "items": "immersive_measurements:sensor_barometer"
           }
         ]
       }
     }
   },
   "requirements": [
-    ["has_cobblestone"]
+    ["has_barometer"]
   ],
   "rewards": {
     "recipes": ["immersive_measurements:depth_meter"]

@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "immersive_measurements:item/resource/base_circuit_board"
+  }
+}

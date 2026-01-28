@@ -3,7 +3,7 @@
   "gui_light": "front",
   "textures": {
     "0": "minecraft:item/display",
-    "particles": "immersive_measurements:item/borders"
+    "particle": "immersive_measurements:item/borders"
   },
   "display": {
     "thirdperson_righthand": {

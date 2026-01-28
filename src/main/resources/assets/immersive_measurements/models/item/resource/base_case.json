@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "immersive_measurements:item/resource/base_case",
+    "particle": "immersive_measurements:item/resource/base_case"
+  }
+}

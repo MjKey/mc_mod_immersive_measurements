@@ -40,6 +40,38 @@ public class ModItems {
             SpeedometerItem::new,
             new Item.Properties()
     );
+    public static final DeferredItem<Item> BASE_CASE = ITEMS.registerSimpleItem(
+            "base_case",
+            new Item.Properties()
+    );
+    public static final DeferredItem<Item> BASE_CIRCUIT_BOARD = ITEMS.registerSimpleItem(
+            "base_circuit_board",
+            new Item.Properties()
+    );
+    public static final DeferredItem<Item> BASE_DISPLAY = ITEMS.registerSimpleItem(
+            "base_display",
+            new Item.Properties()
+    );
+    public static final DeferredItem<Item> ADVANCED_PROCESSOR = ITEMS.registerSimpleItem(
+            "advanced_processor",
+            new Item.Properties()
+    );
+    public static final DeferredItem<Item> SENSOR_BAROMETER = ITEMS.registerSimpleItem(
+            "sensor_barometer",
+            new Item.Properties()
+    );
+    public static final DeferredItem<Item> SENSOR_FLYWHEEL = ITEMS.registerSimpleItem(
+            "sensor_flywheel",
+            new Item.Properties()
+    );
+    public static final DeferredItem<Item> SENSOR_LODESTONE_RESONATOR = ITEMS.registerSimpleItem(
+            "sensor_lodestone_resonator",
+            new Item.Properties()
+    );
+    public static final DeferredItem<Item> SENSOR_QUARTZ_OSCILLATOR = ITEMS.registerSimpleItem(
+            "sensor_quartz_oscillator",
+            new Item.Properties()
+    );
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
@@ -59,10 +91,7 @@ public class ModItems {
 
         stack.set(DataComponents.ITEM_MODEL, model);
     }
-    // ГОТОВО Depthmeter - отображает глубину (типа барометр)
-    // ГОТОВО DigitalClock - цифровые часы
-    // ГОТОВО Triangulator крафтится из 3-х компасов, магнитного камня и прочего, работает за счёт хранения в себе 3-х позиций магнитных камней (которые должны быть на расстоянии 100м друг от друга, если сломать - показания ломаются также), отображает x-z координаты
-    // ГОТОВО GPS собирается из триангулятора, глубиномера и цифровых часов, отображает все 3 координаты и время (требования как у триангулятора)
 
+    // RADAR показывает количество враждебных и мирных мобов рядом, людей. Точками на экране и числом.
     // SCANNER сканирует блок, выдавая о нём информацию.
 }
