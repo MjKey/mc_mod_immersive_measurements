@@ -6,6 +6,15 @@
   "item.immersive_measurements.gps": "GPS",
   "item.immersive_measurements.speedometer": "Speedometer",
 
+  "item.immersive_measurements.advanced_processor": "Advanced processor",
+  "item.immersive_measurements.base_case": "Case",
+  "item.immersive_measurements.base_circuit_board": "Circuit board",
+  "item.immersive_measurements.base_display": "Display",
+  "item.immersive_measurements.sensor_barometer": "Barometer",
+  "item.immersive_measurements.sensor_flywheel": "Flywheel",
+  "item.immersive_measurements.sensor_lodestone_resonator": "Lodestone resonator",
+  "item.immersive_measurements.sensor_quartz_oscillator": "Quartz oscillator",
+
   "item.immersive_measurements.lodestone_already_exists": "Lodestone already exists",
   "item.immersive_measurements.lodestone_need_three": "Need three lodestones for work",
   "item.immersive_measurements.lodestone_another_world": "ERROR: Calibrated for another world!",

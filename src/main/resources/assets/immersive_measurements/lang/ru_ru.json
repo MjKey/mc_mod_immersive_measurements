@@ -6,6 +6,15 @@
   "item.immersive_measurements.gps": "GPS",
   "item.immersive_measurements.speedometer": "Спидометр",
 
+  "item.immersive_measurements.advanced_processor": "Продвинутый процессор",
+  "item.immersive_measurements.base_case": "Корпус",
+  "item.immersive_measurements.base_circuit_board": "Печатная плата",
+  "item.immersive_measurements.base_display": "Дисплей",
+  "item.immersive_measurements.sensor_barometer": "Барометр",
+  "item.immersive_measurements.sensor_flywheel": "Маховик",
+  "item.immersive_measurements.sensor_lodestone_resonator": "Магнитный резонатор",
+  "item.immersive_measurements.sensor_quartz_oscillator": "Кварцевый осцилятор",
+
   "item.immersive_measurements.lodestone_already_exists": "Магнетит уже записан",
   "item.immersive_measurements.lodestone_need_three": "Недостаточно данных: нужно 3 магнетита",
   "item.immersive_measurements.lodestone_another_world": "Ошибка: Триангулятор откалиброван на другой мир!",
