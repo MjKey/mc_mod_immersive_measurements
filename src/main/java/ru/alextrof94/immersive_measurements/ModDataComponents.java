@@ -1,20 +1,16 @@
 package ru.alextrof94.immersive_measurements;
 
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.codec.ByteBufCodecs;
-import net.minecraft.util.ExtraCodecs;
 import net.minecraft.core.component.DataComponentType;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import com.mojang.serialization.Codec;
 
 import java.util.List;
 
-import static ru.alextrof94.immersive_measurements.ImmersiveMeasurements.LOGGER;
 import static ru.alextrof94.immersive_measurements.ImmersiveMeasurements.MODID;
 
 public class ModDataComponents {
@@ -44,6 +40,18 @@ public class ModDataComponents {
             COMPONENTS.register("leds_count", () -> DataComponentType.<Integer>builder()
                     .persistent(Codec.INT) // Сохраняется на диск
                     .networkSynchronized(ByteBufCodecs.VAR_INT) // Синхронизируется с клиентом (ВАЖНО!)
+                    .build());
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> RADAR_MODE =
+            COMPONENTS.register("radar_mode", () -> DataComponentType.<Integer>builder()
+                    .persistent(Codec.INT)
+                    .networkSynchronized(ByteBufCodecs.VAR_INT)
+                    .build());
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> RADAR_PAGE =
+            COMPONENTS.register("radar_page", () -> DataComponentType.<Integer>builder()
+                    .persistent(Codec.INT)
+                    .networkSynchronized(ByteBufCodecs.VAR_INT)
                     .build());
 
     public static void register(IEventBus bus) {

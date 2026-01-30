@@ -5,6 +5,7 @@
   "item.immersive_measurements.triangulator": "Триангулятор",
   "item.immersive_measurements.gps": "GPS",
   "item.immersive_measurements.speedometer": "Спидометр",
+  "item.immersive_measurements.radar": "Радар",
 
   "item.immersive_measurements.advanced_processor": "Продвинутый процессор",
   "item.immersive_measurements.base_case": "Корпус",
@@ -14,6 +15,7 @@
   "item.immersive_measurements.sensor_flywheel": "Маховик",
   "item.immersive_measurements.sensor_lodestone_resonator": "Магнитный резонатор",
   "item.immersive_measurements.sensor_quartz_oscillator": "Кварцевый осцилятор",
+  "item.immersive_measurements.sensor_lifeforms_analyzer": "Анализатор форм жизни",
 
   "item.immersive_measurements.lodestone_already_exists": "Магнетит уже записан",
   "item.immersive_measurements.lodestone_need_three": "Недостаточно данных: нужно 3 магнетита",
@@ -22,8 +24,18 @@
   "item.immersive_measurements.lodestone_in_different_worlds": "Ошибка: Магнетиты находятся в разных измерениях!",
   "item.immersive_measurements.lodestone_too_close": "Ошибка интерференции: магнетиты слишком близко друг к другу!",
 
+  "item.immersive_measurements.nobody_around": "Никого рядом",
+  "item.immersive_measurements.page": "Стр",
+  "item.immersive_measurements.empty_page": "пуста",
+  "item.immersive_measurements.enemies": "Враги",
+  "item.immersive_measurements.peaceful": "Мирные",
+  "item.immersive_measurements.villagers": "Жители",
+
   "immersive_measurements.configuration.title": "Настройки иммерсивных измерений",
   "immersive_measurements.configuration.section.immersive.measurements.common.toml": "Настройки иммерсивных измерений",
   "immersive_measurements.configuration.section.immersive.measurements.common.toml.title": "Настройки иммерсивных измерений",
-  "immersive_measurements.configuration.minDistance": "Расстояние между магнетитами"
+  "immersive_measurements.configuration.minDistance": "Расстояние между магнетитами",
+  "immersive_measurements.configuration.radarPageSize": "Количество существ на странице радара",
+  "immersive_measurements.configuration.radarMapSize": "Размер карты радара",
+  "immersive_measurements.configuration.debugPositions": "DEBUG POS"
 }

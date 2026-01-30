@@ -20,7 +20,8 @@
       "immersive_measurements:sensor_barometer",
       "immersive_measurements:sensor_flywheel",
       "immersive_measurements:sensor_lodestone_resonator",
-      "immersive_measurements:sensor_quartz_oscillator"
+      "immersive_measurements:sensor_quartz_oscillator",
+      "immersive_measurements:sensor_lifeforms_analyzer"
     ]
   }
 }

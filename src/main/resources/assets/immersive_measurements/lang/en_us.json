@@ -5,6 +5,7 @@
   "item.immersive_measurements.triangulator": "Triangulator",
   "item.immersive_measurements.gps": "GPS",
   "item.immersive_measurements.speedometer": "Speedometer",
+  "item.immersive_measurements.radar": "Radar",
 
   "item.immersive_measurements.advanced_processor": "Advanced processor",
   "item.immersive_measurements.base_case": "Case",
@@ -14,6 +15,7 @@
   "item.immersive_measurements.sensor_flywheel": "Flywheel",
   "item.immersive_measurements.sensor_lodestone_resonator": "Lodestone resonator",
   "item.immersive_measurements.sensor_quartz_oscillator": "Quartz oscillator",
+  "item.immersive_measurements.sensor_lifeforms_analyzer": "Lifeforms analyser",
 
   "item.immersive_measurements.lodestone_already_exists": "Lodestone already exists",
   "item.immersive_measurements.lodestone_need_three": "Need three lodestones for work",
@@ -22,8 +24,18 @@
   "item.immersive_measurements.lodestone_in_different_worlds": "ERROR: Lodestones in different worlds!",
   "item.immersive_measurements.lodestone_too_close": "Interference error: Lodestones are too close to each other!",
 
+  "item.immersive_measurements.nobody_around": "Nobody around",
+  "item.immersive_measurements.page": "Page",
+  "item.immersive_measurements.empty_page": "empty",
+  "item.immersive_measurements.enemies": "Enemies",
+  "item.immersive_measurements.peaceful": "Peaceful",
+  "item.immersive_measurements.villagers": "Villagers",
+
   "immersive_measurements.configuration.title": "Immersive Measurements Configs",
   "immersive_measurements.configuration.section.immersive.measurements.common.toml": "Immersive Measurements Configs",
   "immersive_measurements.configuration.section.immersive.measurements.common.toml.title": "Immersive Measurements Configs",
-  "immersive_measurements.configuration.minDistance": "Min distance between lodestones"
+  "immersive_measurements.configuration.minDistance": "Min distance between lodestones",
+  "immersive_measurements.configuration.radarPageSize": "Radar page size",
+  "immersive_measurements.configuration.radarMapSize": "Radar map size",
+  "immersive_measurements.configuration.debugPositions": "DEBUG POS"
 }

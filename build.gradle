@@ -8,197 +8,214 @@ plugins {
     id 'idea'
 }
 
-// === ЛОГИКА ОПРЕДЕЛЕНИЯ VR СБОРКИ ===
-def isVrBuild = gradle.startParameter.taskNames.any { it.contains('buildVR') }
-
-tasks.named('wrapper', Wrapper).configure {
-    distributionType = Wrapper.DistributionType.BIN
-}
-
 version = mod_version
 group = mod_group_id
 
-repositories {}
+// === ВСПОМОГАТЕЛЬНЫЙ КЛАСС (Логика подмены) ===
+class ModActions {
+    // Подмена JAR файла Vivecraft в папке run/mods
+    static void toggleVivecraft(Boolean enable, File modsDir) {
+        if (!modsDir.exists()) modsDir.mkdirs()
+        def enabledFile = new File(modsDir, "vivecraft-1.21.5-1.3.5-neoforge.jar")
+        def disabledFile = new File(modsDir, "vivecraft-1.21.5-1.3.5-neoforge.jar.disabled")
 
-base {
-    archivesName = isVrBuild ? "${mod_id}_VR" : mod_id
-}
-
-java.toolchain.languageVersion = JavaLanguageVersion.of(21)
-
-neoForge {
-    version = project.neo_version
-    parchment {
-        mappingsVersion = project.parchment_mappings_version
-        minecraftVersion = project.parchment_minecraft_version
-    }
-    runs {
-        client {
-            client()
-            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
-        }
-        server {
-            server()
-            programArgument '--nogui'
-            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
-        }
-        gameTestServer {
-            type = "gameTestServer"
-            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
-        }
-        data {
-            clientData()
-            programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
-        }
-        configureEach {
-            systemProperty 'forge.logging.markers', 'REGISTRIES'
-            logLevel = org.slf4j.event.Level.DEBUG
+        if (enable) {
+            if (disabledFile.exists()) {
+                if (disabledFile.renameTo(enabledFile)) println ">>> [VR MODE] Vivecraft ENABLED"
+            }
+        } else {
+            if (enabledFile.exists()) {
+                if (enabledFile.renameTo(disabledFile)) println ">>> [FLAT MODE] Vivecraft DISABLED"
+            }
         }
     }
-    mods {
-        "${mod_id}" {
-            sourceSet(sourceSets.main)
+
+    // Генерация и подмена JSON моделей
+    static void transformJson(File destDir, Boolean isVr, File flatF, File vrF) {
+        // Указываем путь, куда игра реально смотрит при запуске из IDE
+        File modelsDir = new File(destDir, "assets/immersive_measurements/models/item")
+        if (!modelsDir.exists()) {
+            println ">>> WARNING: Models dir not found at ${modelsDir.path}"
+            return
         }
-    }
-}
 
-sourceSets.main.resources { srcDir 'src/generated/resources' }
-
-configurations {
-    runtimeClasspath.extendsFrom localRuntime
-}
-
-dependencies {}
-
-var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {
-    var replaceProperties = [
-            minecraft_version      : minecraft_version,
-            minecraft_version_range: minecraft_version_range,
-            neo_version            : neo_version,
-            mod_id                 : mod_id,
-            mod_name               : isVrBuild ? "${mod_name} VR" : mod_name,
-            mod_license            : mod_license,
-            mod_version            : mod_version,
-    ]
-    inputs.properties replaceProperties
-    expand replaceProperties
-    from "src/main/templates"
-    into "build/generated/sources/modMetadata"
-}
-
-sourceSets.main.resources.srcDir generateModMetadata
-neoForge.ideSyncTask generateModMetadata
-
-// === ОБРАБОТКА РЕСУРСОВ ===
-
-processResources {
-    // Исключаем шаблоны из финального JAR
-    exclude '**/FLAT_displays.json'
-    exclude '**/VR_displays.json'
-
-    duplicatesStrategy = DuplicatesStrategy.INCLUDE
-
-    // Указываем inputs, чтобы Gradle знал, когда перезапускать задачу
-    // Мы используем строки путей, чтобы не передавать File объекты, связанные с проектом
-    def flatPath = "src/main/resources/assets/immersive_measurements/models/item/FLAT_displays.json"
-    def vrPath = "src/main/resources/assets/immersive_measurements/models/item/VR_displays.json"
-
-    inputs.file(flatPath).optional()
-    inputs.file(vrPath).optional()
-    inputs.property("isVrBuild", isVrBuild)
-
-    // Выполняем подмену ПОСЛЕ копирования, используя чистую Java
-    doLast {
-        // destinationDir - это свойство задачи Copy, оно доступно
-        File buildDir = destinationDir
-
-        // Список файлов для обработки
         def targetNames = [
                 'depth_meter_geo.json', 'depth_meter_text.json',
                 'digital_clock_geo.json', 'digital_clock_text.json',
                 'triangulator_geo.json', 'triangulator_text.json',
                 'gps_geo.json', 'gps_text.json',
                 'speedometer_geo.json', 'speedometer_text.json'
-        ] as Set
+        ]
 
-        // Путь внутри assets (где лежат наши json)
-        // Используем new File(parent, child), это чистая Java
-        File modelsDir = new File(buildDir, "assets/immersive_measurements/models/item")
+        def jsonSlurper = new JsonSlurper()
 
-        // Проверяем, существует ли папка в build (должна, если ресурсы скопировались)
-        if (modelsDir.exists()) {
+        println ">>> Applying ${isVr ? 'VR' : 'FLAT'} transformation to models..."
 
-            // Находим исходные файлы шаблонов (относительно корня проекта)
-            File flatFile = new File("src/main/resources/assets/immersive_measurements/models/item/FLAT_displays.json")
-            File vrFile = new File("src/main/resources/assets/immersive_measurements/models/item/VR_displays.json")
+        targetNames.each { fileName ->
+            File targetFile = new File(modelsDir, fileName)
+            if (targetFile.exists()) {
+                def json = jsonSlurper.parse(targetFile)
 
-            def jsonSlurper = new JsonSlurper()
-
-            // Проходимся только по целевым файлам в папке сборки
-            targetNames.each { fileName ->
-                File targetFile = new File(modelsDir, fileName)
-
-                if (targetFile.exists()) {
-                    // Читаем JSON из папки build
-                    def json = jsonSlurper.parse(targetFile)
-
-                    // 1. Применяем FLAT
-                    if (flatFile.exists()) {
-                        def flatJson = jsonSlurper.parse(flatFile)
-                        if (flatJson.display) {
-                            json.display = flatJson.display
-                        }
-                    }
-
-                    // 2. Применяем VR
-                    if (isVrBuild) {
-                        if (vrFile.exists()) {
-                            def vrJson = jsonSlurper.parse(vrFile)
-                            String itemName = fileName.replace('_geo.json', '').replace('_text.json', '')
-
-                            if (vrJson[itemName]) {
-                                if (json.display == null) { json.display = [:] }
-                                vrJson[itemName].each { key, value ->
-                                    json.display[key] = value
-                                }
-                            }
-                        }
-                    }
-
-                    // Сохраняем обратно
-                    targetFile.text = JsonOutput.prettyPrint(JsonOutput.toJson(json))
+                // 1. Сначала накатываем базу (FLAT)
+                if (flatF.exists()) {
+                    def flatJson = jsonSlurper.parse(flatF)
+                    if (flatJson.display) json.display = flatJson.display
                 }
+
+                // 2. Если VR, накатываем поверх изменения VR
+                if (isVr && vrF.exists()) {
+                    def vrJson = jsonSlurper.parse(vrF)
+                    String itemName = fileName.replace('_geo.json', '').replace('_text.json', '')
+                    if (vrJson[itemName]) {
+                        if (json.display == null) json.display = [:]
+                        vrJson[itemName].each { key, value -> json.display[key] = value }
+                    }
+                }
+                targetFile.text = JsonOutput.prettyPrint(JsonOutput.toJson(json))
             }
         }
     }
 }
 
-publishing {
-    publications {
-        register('mavenJava', MavenPublication) {
-            from components.java
+// === ПУТИ К ФАЙЛАМ ===
+def flatSourceFile = file("src/main/resources/assets/immersive_measurements/models/item/FLAT_displays.json")
+def vrSourceFile = file("src/main/resources/assets/immersive_measurements/models/item/VR_displays.json")
+def runModsDir = file("run/mods")
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+
+// === NEOFORGE КОНФИГУРАЦИЯ ===
+neoForge {
+    version = project.neo_version
+    parchment {
+        mappingsVersion = project.parchment_mappings_version
+        minecraftVersion = project.parchment_minecraft_version
+    }
+
+    // Оставляем ТОЛЬКО ОДИН МОД, чтобы избежать конфликтов и ошибок плагина
+    mods {
+        "${mod_id}" {
+            sourceSet(sourceSets.main)
         }
     }
-    repositories {
-        maven {
-            url "file://${project.projectDir}/repo"
+
+    runs {
+        client {
+            client()
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        }
+        clientVR {
+            client()
+            // Это создаст отдельную задачу runClientVR
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+            // Маркер для нас, что это VR режим (опционально)
+            systemProperty 'app.vr_mode', 'true'
+        }
+        server {
+            server()
+            programArgument '--nogui'
         }
     }
 }
 
-tasks.withType(JavaCompile).configureEach {
-    options.encoding = 'UTF-8'
+// === МЕТАДАННЫЕ ===
+def metadataProperties = [
+        minecraft_version      : minecraft_version,
+        minecraft_version_range: minecraft_version_range,
+        neo_version            : neo_version,
+        mod_id                 : mod_id,
+        mod_license            : mod_license,
+        mod_version            : mod_version
+]
+
+// Генерируем метаданные (по умолчанию Flat)
+var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {
+    inputs.properties(metadataProperties + [mod_name: mod_name])
+    expand(metadataProperties + [mod_name: mod_name])
+    from "src/main/templates"
+    into "build/generated/sources/modMetadata"
 }
+
+sourceSets.main.resources.srcDir generateModMetadata
+
+// === ОБРАБОТКА РЕСУРСОВ ===
+processResources {
+    exclude '**/FLAT_displays.json', '**/VR_displays.json'
+    // НЕ делаем трансформацию здесь, так как она будет перезаписана при запуске
+}
+
+// === СБОРКА JAR (BUILD) ===
+// Для build мы хотим создать два файла.
+// Тут мы используем трюк с копированием.
+
+tasks.named('jar', Jar) {
+    archiveBaseName = mod_id
+    // В стандартный JAR кладем Flat версии по умолчанию
+    doLast {
+        // Логика по умолчанию уже отработала
+    }
+}
+
+// Отдельная задача для создания VR JAR
+def jarVR = tasks.register("jarVR", Jar) {
+    group = "build"
+    archiveBaseName = "${mod_id}_VR"
+    from sourceSets.main.output
+
+    // В момент создания архива подменим файлы внутри него
+    // (Это упрощенный вариант, чтобы не дублировать sourceSets)
+    exclude 'assets/immersive_measurements/models/item/*.json'
+
+    // Но мы должны добавить VR версии.
+    // Для полноценной сборки двух JAR лучше использовать подход "сначала собери main, потом скопируй и измени".
+    // Но для простоты вернемся к рабочему методу с двумя JAR позже, если нужно.
+    // Сейчас фокус на runClient / runClientVR.
+}
+
+// === ЛОГИКА ЗАПУСКА (СЕРДЦЕ СИСТЕМЫ) ===
+
+// 1. При запуске runClient
+tasks.matching { it.name == 'runClient' }.all { task ->
+    def modsD = runModsDir
+    def flatF = flatSourceFile
+    def vrF = vrSourceFile
+
+    // Используем sourceSets.main.output.resourcesDir - это папка, откуда игра берет файлы
+    def resDir = sourceSets.main.output.resourcesDir
+
+    task.doFirst {
+        ModActions.toggleVivecraft(false, modsD)
+        if (resDir) {
+            ModActions.transformJson(resDir, false, flatF, vrF)
+        }
+    }
+}
+
+// 2. При запуске runClientVR
+tasks.matching { it.name == 'runClientVR' }.all { task ->
+    def modsD = runModsDir
+    def flatF = flatSourceFile
+    def vrF = vrSourceFile
+    def resDir = sourceSets.main.output.resourcesDir
+
+    task.doFirst {
+        ModActions.toggleVivecraft(true, modsD)
+        if (resDir) {
+            ModActions.transformJson(resDir, true, flatF, vrF)
+        }
+    }
+}
+
+// === ПРОЧЕЕ ===
+publishing {
+    publications { register('mavenJava', MavenPublication) { from components.java } }
+}
+
+tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
 
 idea {
     module {
         downloadSources = true
         downloadJavadoc = true
     }
-}
-
-tasks.register('buildVR') {
-    group = 'build'
-    description = 'Сборка мода с логикой VR и измененными моделями'
-    dependsOn tasks.named('build')
 }

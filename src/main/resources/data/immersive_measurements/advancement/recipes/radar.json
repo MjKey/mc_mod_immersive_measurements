@@ -1,0 +1,21 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_sensor": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "immersive_measurements:sensor_lifeforms_analyzer"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    ["has_sensor"]
+  ],
+  "rewards": {
+    "recipes": ["immersive_measurements:radar"]
+  }
+}

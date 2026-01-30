@@ -50,7 +50,7 @@ public class ImmersiveMeasurementsClient {
             if (mc.player != null && mc.player.getMainHandItem().getItem() instanceof IDisplayItem item) {
                 item.leftClickAction(mc.level, mc.player);
                 event.setCanceled(true);
-                event.setSwingHand(true);
+                event.setSwingHand(false);
             }
         }
     }
@@ -72,5 +72,8 @@ public class ImmersiveMeasurementsClient {
         event.register(
                 ResourceLocation.fromNamespaceAndPath(MODID, "speedometer_text"),
                 SpeedometerRenderer.UNBAKED.type());
+        event.register(
+                ResourceLocation.fromNamespaceAndPath(MODID, "radar_text"),
+                RadarRenderer.UNBAKED.type());
     }
 }

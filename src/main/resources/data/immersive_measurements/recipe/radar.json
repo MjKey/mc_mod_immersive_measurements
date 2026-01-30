@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    " D ",
+    " S ",
+    " C "
+  ],
+  "key": {
+    "D": "immersive_measurements:base_display",
+    "S": "immersive_measurements:sensor_lifeforms_analyzer",
+    "C": "immersive_measurements:base_case"
+  },
+  "result": {
+    "count": 1,
+    "id": "immersive_measurements:radar"
+  }
+}

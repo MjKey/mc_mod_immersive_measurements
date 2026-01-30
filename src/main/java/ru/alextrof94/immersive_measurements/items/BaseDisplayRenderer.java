@@ -11,6 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
+import ru.alextrof94.immersive_measurements.Config;
 import ru.alextrof94.immersive_measurements.CustomData;
 
 import java.util.function.Supplier;
@@ -19,6 +20,13 @@ public abstract class BaseDisplayRenderer implements SpecialModelRenderer<Custom
     protected abstract float getScreenWidth();
     protected abstract float getScreenHeight();
     protected abstract Vector3f getScreenOffset();
+
+    public Quaternionf getDefItemRotation() {
+        var level = Minecraft.getInstance().level;
+        if (Config.DEBUG_POSITIONS.get() && level != null)
+            return new Quaternionf().rotateX((float) Math.toRadians(-90f)).rotateZ((float) Math.toRadians(-90f)).rotateY((float) Math.toRadians(level.getDayTime() * 3));
+        return new Quaternionf().rotateX((float) Math.toRadians(-90f)).rotateZ((float) Math.toRadians(-90f));
+    }
 
     @Override
     public void render(@Nullable CustomData data, @NotNull ItemDisplayContext displayContext, @NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int packedLight, int packedOverlay, boolean hasFoil) {
@@ -30,7 +38,7 @@ public abstract class BaseDisplayRenderer implements SpecialModelRenderer<Custom
         // 1. Позиционирование на основе параметров дочернего класса
         Vector3f offset = getScreenOffset();
         poseStack.translate(offset.x(), offset.y(), offset.z());
-        poseStack.mulPose(new Quaternionf().rotateX((float) Math.toRadians(-90f)).rotateZ((float) Math.toRadians(-90f)));
+        poseStack.mulPose(getDefItemRotation());
 
         // --- РАСЧЕТ МАСШТАБА ---
         float maxWidth = 0;

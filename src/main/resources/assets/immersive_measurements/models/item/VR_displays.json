@@ -26,5 +26,19 @@
       "translation": [1.5, -1, -8],
       "scale": [0.5, 0.5, 0.5]
     }
+  },
+  "speedometer": {
+    "firstperson_righthand": {
+      "rotation": [60, -90, 180],
+      "translation": [1.5, -1, -8],
+      "scale": [0.5, 0.5, 0.5]
+    }
+  },
+  "radar": {
+    "firstperson_righthand": {
+      "rotation": [60, -90, 180],
+      "translation": [1.5, -1, -8],
+      "scale": [0.5, 0.5, 0.5]
+    }
   }
 }

@@ -32,9 +32,15 @@ public class ModItems {
                         GpsItem::new,
                         new Item.Properties());
         public static final DeferredItem<Item> SPEEDOMETER = ITEMS.registerItem(
-                        "speedometer",
-                        SpeedometerItem::new,
-                        new Item.Properties());
+                "speedometer",
+                SpeedometerItem::new,
+                new Item.Properties());
+        public static final DeferredItem<Item> RADAR = ITEMS.registerItem(
+                "radar",
+                RadarItem::new,
+                new Item.Properties());
+
+
         public static final DeferredItem<Item> BASE_CASE = ITEMS.registerSimpleItem(
                         "base_case",
                         new Item.Properties());
@@ -57,8 +63,11 @@ public class ModItems {
                         "sensor_lodestone_resonator",
                         new Item.Properties());
         public static final DeferredItem<Item> SENSOR_QUARTZ_OSCILLATOR = ITEMS.registerSimpleItem(
-                        "sensor_quartz_oscillator",
-                        new Item.Properties());
+                "sensor_quartz_oscillator",
+                new Item.Properties());
+        public static final DeferredItem<Item> SENSOR_LIFEFORMS_ANALYSER = ITEMS.registerSimpleItem(
+                "sensor_lifeforms_analyzer",
+                new Item.Properties());
 
         public static void register(IEventBus eventBus) {
                 ITEMS.register(eventBus);
@@ -79,7 +88,8 @@ public class ModItems {
                 stack.set(DataComponents.ITEM_MODEL, model);
         }
 
-        // RADAR показывает количество враждебных и мирных мобов рядом, людей. Точками
-        // на экране и числом.
         // SCANNER сканирует блок, выдавая о нём информацию.
+
+        // баги
+        // Speedometer нен работает у игроков-клиентов.
 }

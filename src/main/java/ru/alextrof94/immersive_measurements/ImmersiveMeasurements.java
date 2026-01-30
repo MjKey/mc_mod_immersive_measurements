@@ -27,6 +27,7 @@ public class ImmersiveMeasurements {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister
             .create(Registries.CREATIVE_MODE_TAB, MODID);
 
+    @SuppressWarnings("unused")
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> IMMERSIVE_MEASUREMENTS_TAB = CREATIVE_MODE_TABS
             .register("immersive_measurements_tab", () -> CreativeModeTab.builder()
                     .title(Component.translatable("itemGroup.immersive_measurements"))
@@ -38,6 +39,7 @@ public class ImmersiveMeasurements {
                         output.accept(ModItems.TRIANGULATOR.get());
                         output.accept(ModItems.GPS.get());
                         output.accept(ModItems.SPEEDOMETER.get());
+                        output.accept(ModItems.RADAR.get());
                         output.accept(ModItems.BASE_CASE.get());
                         output.accept(ModItems.BASE_DISPLAY.get());
                         output.accept(ModItems.BASE_CIRCUIT_BOARD.get());
@@ -46,6 +48,7 @@ public class ImmersiveMeasurements {
                         output.accept(ModItems.SENSOR_FLYWHEEL.get());
                         output.accept(ModItems.SENSOR_LODESTONE_RESONATOR.get());
                         output.accept(ModItems.SENSOR_QUARTZ_OSCILLATOR.get());
+                        output.accept(ModItems.SENSOR_LIFEFORMS_ANALYSER.get());
                     }).build());
 
     public ImmersiveMeasurements(IEventBus modEventBus, ModContainer modContainer) {
@@ -77,6 +80,7 @@ public class ImmersiveMeasurements {
             event.accept(ModItems.TRIANGULATOR);
             event.accept(ModItems.GPS);
             event.accept(ModItems.SPEEDOMETER);
+            event.accept(ModItems.RADAR);
             event.accept(ModItems.BASE_CASE.get());
             event.accept(ModItems.BASE_DISPLAY.get());
             event.accept(ModItems.BASE_CIRCUIT_BOARD.get());
@@ -85,6 +89,7 @@ public class ImmersiveMeasurements {
             event.accept(ModItems.SENSOR_FLYWHEEL.get());
             event.accept(ModItems.SENSOR_LODESTONE_RESONATOR.get());
             event.accept(ModItems.SENSOR_QUARTZ_OSCILLATOR.get());
+            event.accept(ModItems.SENSOR_LIFEFORMS_ANALYSER.get());
         }
     }
 

@@ -11,7 +11,6 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
-import org.joml.Quaternionf;
 import org.joml.Vector3f;
 import ru.alextrof94.immersive_measurements.CustomData;
 
@@ -55,8 +54,9 @@ public class SpeedometerRenderer extends BaseDisplayRenderer {
         poseStack.pushPose();
 
         Vector3f offset = getScreenOffset();
+        offset.y += 0.01f;
         poseStack.translate(offset.x(), offset.y(), offset.z());
-        poseStack.mulPose(new Quaternionf().rotateX((float) Math.toRadians(-90f)).rotateZ((float) Math.toRadians(-90f)));
+        poseStack.mulPose(getDefItemRotation());
 
         drawArc(poseStack, buffer, data.progress, getScreenWidth(), getScreenHeight());
 
@@ -65,7 +65,7 @@ public class SpeedometerRenderer extends BaseDisplayRenderer {
 
 
     protected void drawArc(PoseStack poseStack, MultiBufferSource buffer, float progress, float width, float height) {
-        VertexConsumer consumer = buffer.getBuffer(RenderType.gui()); // Используем стандартный тип для плоских фигур
+        VertexConsumer consumer = buffer.getBuffer(RenderType.gui());
         Matrix4f matrix = poseStack.last().pose();
 
         float radius = Math.min(width, height) * 1.1f;
@@ -85,20 +85,20 @@ public class SpeedometerRenderer extends BaseDisplayRenderer {
             drawSegment(consumer, matrix,
                     centerX + (float)Math.cos(angle1) * radius, centerY + (float)Math.sin(angle1) * radius,
                     centerX + (float)Math.cos(angle2) * radius, centerY + (float)Math.sin(angle2) * radius,
-                    thickness, r, g, b, 255);
+                    thickness, r, g, b);
         }
     }
 
-    private void drawSegment(VertexConsumer consumer, Matrix4f matrix, float x1, float y1, float x2, float y2, float th, int r, int g, int b, int a) {
+    private void drawSegment(VertexConsumer consumer, Matrix4f matrix, float x1, float y1, float x2, float y2, float th, int r, int g, int b) {
         float dx = x2 - x1;
         float dy = y2 - y1;
         float len = (float) Math.sqrt(dx * dx + dy * dy);
         float nx = -dy / len * th;
         float ny = dx / len * th;
 
-        consumer.addVertex(matrix, x1, y1, 0).setColor(r, g, b, a).setLight(15728880);
-        consumer.addVertex(matrix, x2, y2, 0).setColor(r, g, b, a).setLight(15728880);
-        consumer.addVertex(matrix, x2 + nx, y2 + ny, 0).setColor(r, g, b, a).setLight(15728880);
-        consumer.addVertex(matrix, x1 + nx, y1 + ny, 0).setColor(r, g, b, a).setLight(15728880);
+        consumer.addVertex(matrix, x1, y1, 0).setColor(r, g, b, 255).setLight(15728880);
+        consumer.addVertex(matrix, x2, y2, 0).setColor(r, g, b, 255).setLight(15728880);
+        consumer.addVertex(matrix, x2 + nx, y2 + ny, 0).setColor(r, g, b, 255).setLight(15728880);
+        consumer.addVertex(matrix, x1 + nx, y1 + ny, 0).setColor(r, g, b, 255).setLight(15728880);
     }
 }

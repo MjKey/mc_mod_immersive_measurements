@@ -5,15 +5,16 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public abstract class BaseDisplayItem extends Item implements IDisplayItem {
-    public BaseDisplayItem(Item.Properties properties) {
-        super(properties.stacksTo(1));
+public abstract class BaseDisplayBlockItem extends BlockItem implements IDisplayItem {
+    public BaseDisplayBlockItem(Block block, Properties properties) {
+        super(block, properties.stacksTo(1));
     }
 
     @MethodsReturnNonnullByDefault
@@ -23,7 +24,7 @@ public abstract class BaseDisplayItem extends Item implements IDisplayItem {
             return InteractionResult.FAIL;
         }
 
-            rightClickAction(level, player, null);
+        rightClickAction(level, player, null);
         return InteractionResult.SUCCESS;
     }
 
@@ -45,5 +46,5 @@ public abstract class BaseDisplayItem extends Item implements IDisplayItem {
     public abstract void leftClickAction(Level level, @NotNull Player player);
 
     public abstract InteractionResult rightClickAction(Level level, @NotNull Player player,
-            @Nullable BlockPos blockPos);
+                                                           @Nullable BlockPos blockPos);
 }
